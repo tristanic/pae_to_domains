@@ -9,7 +9,7 @@ Using a predicted aligned error matrix corresponding to an AlphaFold2 model (e.g
 - NetworkX >= 2.6.2
 
 ## Known Issues
-Due to an internal implementation issue in NetworkX [(Issue #4992)](https://github.com/networkx/networkx/issues/4992#issue-955897477) some combinations of PAE matrix and resolution can lead to a `KeyError`. Solutions to this are being explored, and it will hopefully be fixed in the next NetworkX release.
+Due to an internal implementation issue in NetworkX 2.6.2 [(Issue #4992)](https://github.com/networkx/networkx/issues/4992#issue-955897477) some combinations of PAE matrix and resolution can lead to a `KeyError`. This will be fixed in the next NetworkX release.
 
 ## Usage
 While primarily intended as a code snippet to be incorporated into larger projects, this can also be called from the command line. At its simplest:
