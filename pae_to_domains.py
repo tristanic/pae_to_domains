@@ -3,15 +3,19 @@ def parse_pae_file(pae_json_file):
 
     with open(pae_json_file, 'rt') as f:
         data = json.load(f)[0]
+
+    if 'residue1' in data and 'distance' in data:
+        # Legacy PAE format, keep for backwards compatibility.
+        r1, d = data['residue1'], data['distance']
+        size = max(r1)
+        matrix = numpy.empty((size, size), dtype=numpy.float64)
+        matrix.ravel()[:] = d
+    elif 'predicted_aligned_error' in data:
+        # New PAE format.
+        matrix = numpy.array(data['predicted_aligned_error'], dtype=numpy.float64)
+    else:
+        raise ValueError('Invalid PAE JSON format.')
     
-    r1, d = data['residue1'],data['distance']
-
-    size = max(r1)
-
-    matrix = numpy.empty((size,size))
-
-    matrix.ravel()[:] = d
-
     return matrix
 
 def domains_from_pae_matrix_networkx(pae_matrix, pae_power=1, pae_cutoff=5, graph_resolution=1):
